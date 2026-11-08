@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WidgetDemoMaui.MainPage"
+             Title="Widget Demo App"
+             BackgroundColor="{StaticResource PageBackground}">
+
+    <!-- ScrollView + VerticalStackLayout: whole page scrolls on small screens -->
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="18">
+
+            <!-- IMAGE inside a circular Border (avatar) -->
+            <Border HeightRequest="140" WidthRequest="140"
+                    HorizontalOptions="Center" StrokeThickness="0"
+                    StrokeShape="Ellipse">
+                <Image Source="avatar.png" Aspect="AspectFill" />
+            </Border>
+
+            <!-- BORDER (card) + nested layout + LABELs -->
+            <Border StrokeShape="RoundRectangle 16" StrokeThickness="0"
+                    BackgroundColor="White" Padding="20">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Rahul Sharma" FontSize="26" FontAttributes="Bold"
+                           TextColor="Black" HorizontalTextAlignment="Center" />
+                    <Label Text="B.E. Computer Engineering" FontSize="15"
+                           TextColor="Gray" HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- GRID: two equal columns holding the buttons -->
+            <Grid ColumnSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="LikeButton" Grid.Column="0" Text="Like (0)"
+                        BackgroundColor="{StaticResource PrimaryColor}"
+                        TextColor="White" CornerRadius="10"
+                        Clicked="OnLikeClicked" />
+
+                <Button x:Name="MessageButton" Grid.Column="1" Text="Message"
+                        BackgroundColor="#4CAF50" TextColor="White" CornerRadius="10"
+                        Clicked="OnMessageClicked" />
+            </Grid>
+
+            <!-- ENTRY -->
+            <Entry x:Name="CommentEntry" Placeholder="Add a comment"
+                   BackgroundColor="White" TextColor="Black"
+                   PlaceholderColor="Gray" />
+
+            <!-- SWITCH -->
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                <Label Text="Available for internship" VerticalOptions="Center"
+                       TextColor="Black" />
+                <Switch x:Name="AvailableSwitch" IsToggled="True"
+                        Toggled="OnAvailableToggled" />
+            </HorizontalStackLayout>
+            <Label x:Name="StatusLabel" Text="Status: Available"
+                   TextColor="#2E7D32" HorizontalTextAlignment="Center" />
+
+            <Label Text="Skills" FontSize="18" FontAttributes="Bold" TextColor="Black" />
+
+            <!-- COLLECTIONVIEW: horizontally scrolling skill tags -->
+            <CollectionView x:Name="SkillsView" HeightRequest="60"
+                            ItemsSource="{Binding Skills}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="10" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Border StrokeShape="RoundRectangle 20" StrokeThickness="0"
+                                BackgroundColor="{StaticResource PrimaryColor}"
+                                Padding="16,8" VerticalOptions="Center">
+                            <Label Text="{Binding .}" TextColor="White"
+                                   FontAttributes="Bold" />
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- ACTIVITY INDICATOR -->
+            <ActivityIndicator x:Name="Spinner" IsRunning="False" IsVisible="False"
+                               Color="{StaticResource PrimaryColor}" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
